@@ -10,49 +10,55 @@ import cvMapData from './maps/cv-all.geo.json';
 HighchartsMapModule(Highcharts);
 
 const MapaHighcharts = () => {
-  const [options, setOptions] = useState(null);
+    const [options, setOptions] = useState(null);
 
-  useEffect(() => {
-    setOptions({
-      chart: {
-        map: cvMapData,
-      },
-      title: {
-        text: 'Mapa Interativo de Cabo Verde',
-      },
-      subtitle: {
-        text: 'Clique em uma ilha para ver mais detalhes',
-      },
-      mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-          verticalAlign: 'bottom',
-        },
-      },
-      series: [
-        {
-          name: 'São Lourenço dos Orgãos',
-          data: [
-            ['cv-so', 10],
-            ['cv-st', 20],
-          ],
-          dataLabels: {
-            enabled: true,
-            format: '{point.name}',
-          },
-          tooltip: {
-            pointFormat: 'Valor: {point.value}',
-          },
-        },
-      ],
-    });
-  }, []);
+    useEffect(() => {
+        setOptions({
+            chart: {
+                map: cvMapData,
+            },
+            title: {
+                text: 'Mapa Interativo de Cabo Verde',
+            },
+            subtitle: {
+                text: 'Clique em uma ilha para ver mais detalhes',
+            },
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom',
+                },
+            },
+            series: [
+                {
+                    data: [
+                        ['cv-br', 10,], ['cv-ma', 11], ['cv-6566', 12], ['cv-6567', 13],
+                        ['cv-6570', 14], ['cv-sf', 15], ['cv-mo', 16], ['cv-cf', 17],
+                        ['cv-ta', 18], ['cv-ca', 19], ['cv-sm', 20], ['cv-cr', 21],
+                        ['cv-ss', 22], ['cv-so', 23], ['cv-sd', 24], ['cv-rs', 25],
+                        ['cv-pr', 26], ['cv-6568', 27], ['cv-6569', 28], ['cv-6571', 29],
+                        ['cv-6572', 30], ['cv-6573', 31]
+                    ],
+                    name: 'Ilhas',
+                    states: {
+                        hover: {
+                            color: '#BADA55'
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false,
+                        format: '{point.name}'
+                    }
+                },
+            ],
+        });
+    }, []);
 
-  if (!options) {
-    return <div>Carregando...</div>;
-  }
+    if (!options) {
+        return <div>Carregando...</div>;
+    }
 
-  return <HighchartsReact highcharts={Highcharts} constructorType={'mapChart'} options={options} />;
+    return <HighchartsReact highcharts={Highcharts} constructorType={'mapChart'} options={options} />;
 };
 
 export default MapaHighcharts;
