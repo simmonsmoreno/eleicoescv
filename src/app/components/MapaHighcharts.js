@@ -1,7 +1,7 @@
 "use client"; // Indica que este é um componente de cliente
 
 import React, { useEffect, useState } from 'react';
-import Highcharts from 'highcharts/highmaps';
+import Highcharts, { color } from 'highcharts/highmaps';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsMapModule from 'highcharts/modules/map';
 import cvMapData from './maps/cv-all.geo.json';
@@ -16,6 +16,8 @@ const MapaHighcharts = () => {
         setOptions({
             chart: {
                 map: cvMapData,
+                backgroundColor: 'transparent', // Define um fundo transparente
+                height: '100%', // Faz o gráfico ocupar 100% da altura
             },
             title: {
                 text: 'Mapa Interativo de Cabo Verde',
@@ -42,7 +44,7 @@ const MapaHighcharts = () => {
                     name: 'Ilhas',
                     states: {
                         hover: {
-                            color: '#BADA55'
+                            color: 'yellow'
                         }
                     },
                     dataLabels: {
@@ -58,7 +60,23 @@ const MapaHighcharts = () => {
         return <div>Carregando...</div>;
     }
 
-    return <HighchartsReact highcharts={Highcharts} constructorType={'mapChart'} options={options} />;
+    return (
+        <div
+            style={{
+                width: "100%",
+                overflow: "hidden", // Impede o conteúdo de ultrapassar os limites
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <HighchartsReact
+                highcharts={Highcharts}
+                constructorType={'mapChart'}
+                options={options}
+            />
+        </div>
+    )
 };
 
 export default MapaHighcharts;
